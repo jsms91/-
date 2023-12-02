@@ -73,7 +73,7 @@
 <!--javascript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <!-- 구글 맵 API -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHgDQIauLTIeS1P9UWW9ba_HmNUY7fvO0&libraries=places&callback=initMap"></script>
+<script async defer src="key 값"></script>
 <script>
 //============================= 구글 API 시작 =============================
 
