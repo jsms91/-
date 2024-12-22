@@ -70,54 +70,54 @@ public class UserController {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	@RequestMapping("join")
 	public String join(HttpServletRequest request, Model model) {
 		
-		//ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­ °ü·Ã Ãß°¡ ºÎºĞ
-		System.out.println("ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­ ½ÃÀÛ");
-		String u1Pw = request.getParameter("user_pw"); // ÀÔ·ÂÇÑ ºñ¹Ğ¹øÈ£ °ªÀ» u1Pw¿¡ ÀúÀå
+		//ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” ê´€ë ¨ ì¶”ê°€ ë¶€ë¶„
+		System.out.println("ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” ì‹œì‘");
+		String u1Pw = request.getParameter("user_pw"); // ì…ë ¥í•œ ë¹„ë°€ë²ˆí˜¸ ê°’ì„ u1Pwì— ì €ì¥
 		String uPw_org = u1Pw;
-		u1Pw = passwordEncoder.encode(uPw_org);//¾ÏÈ£È­ ´Ü°è	
+		u1Pw = passwordEncoder.encode(uPw_org);//ì•”í˜¸í™” ë‹¨ê³„	
 		System.out.println(u1Pw);		
-		System.out.println("ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­ º¯È¯");
-		//ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­ ¿©±â±îÁö°¡ Ãß°¡ºÎºĞ ¹Ø¿¡ ºñ¹Ğ¹øÈ£´Â ¾Õ¿¡¼­ request.getParameter·Î ¹Ş¾Æ¿Í¼­ ¹Ù·Î ±×³É ÀÔ·Â
+		System.out.println("ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” ë³€í™˜");
+		//ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” ì—¬ê¸°ê¹Œì§€ê°€ ì¶”ê°€ë¶€ë¶„ ë°‘ì— ë¹„ë°€ë²ˆí˜¸ëŠ” ì•ì—ì„œ request.getParameterë¡œ ë°›ì•„ì™€ì„œ ë°”ë¡œ ê·¸ëƒ¥ ì…ë ¥
 		
 		String result = 
 		udao.Join(request.getParameter("user_id"), u1Pw, request.getParameter("user_name"), request.getParameter("user_sex"), 
 					request.getParameter("user_email"), request.getParameter("user_phone"), request.getParameter("user_profile"),
 					request.getParameter("user_ag1"), request.getParameter("user_ag2"), request.getParameter("user_code"));
 		
-		System.out.println("¼º°ø¿©ºÎ : " + result);
+		System.out.println("ì„±ê³µì—¬ë¶€ : " + result);
 		
 		if(result.equals("join-success")) {
-			System.out.println("°¡ÀÔ ¼º°ø");	
+			System.out.println("ê°€ì… ì„±ê³µ");	
 			return "redirect:login_view";
 		}
 		else {
-			System.out.println("°¡ÀÔ ½ÇÆĞ");
-			return "redirect:join_view";//½ÇÆĞ ÆäÀÌÁö ÇÏ³ª¸¸µé¾î¼­ ¸ğ´ŞÀÌ³ª ¹®±¸¶ç¿ì°í ¹Ù·Î È¸¿ø°¡ÀÔÆäÀÌÁö·Î ³Ñ¾î°¡°ÔÇØµµµÊ.
+			System.out.println("ê°€ì… ì‹¤íŒ¨");
+			return "redirect:join_view";//ì‹¤íŒ¨ í˜ì´ì§€ í•˜ë‚˜ë§Œë“¤ì–´ì„œ ëª¨ë‹¬ì´ë‚˜ ë¬¸êµ¬ë„ìš°ê³  ë°”ë¡œ íšŒì›ê°€ì…í˜ì´ì§€ë¡œ ë„˜ì–´ê°€ê²Œí•´ë„ë¨.
 		}
 		
 	}
 	
-	//È¸¿ø°¡ÀÔ ¾ÆÀÌµğ Áßº¹Ã¼Å©
+	//íšŒì›ê°€ì… ì•„ì´ë”” ì¤‘ë³µì²´í¬
 	@RequestMapping("IdCheck")
 		public @ResponseBody String IdCheck(UserDto dto1) {
-		System.out.println("¾ÆÀÌµğ Áßº¹°Ë»ç ½ÃÀÛ : " + dto1);
+		System.out.println("ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬ ì‹œì‘ : " + dto1);
 		
 		String result = null;
 		
 		try {
 		
-			String str = udao.IdCheck(dto1); //dao¿¡¼­ ¾ÆÀÌµğ °¡Á®¿À±â
+			String str = udao.IdCheck(dto1); //daoì—ì„œ ì•„ì´ë”” ê°€ì ¸ì˜¤ê¸°
 		
 			if(str == null) {
-				System.out.println("DB¿¡ ¾ÆÀÌµğ°¡ ¾øÀ½");
+				System.out.println("DBì— ì•„ì´ë””ê°€ ì—†ìŒ");
 				result = "ok";
 			}
 			else {
-				System.out.println("DB¿¡ ¾ÆÀÌµğ Á¸Àç");
+				System.out.println("DBì— ì•„ì´ë”” ì¡´ì¬");
 				result = "no";
 			}
 		}
@@ -131,21 +131,21 @@ public class UserController {
 	
 	}
 	
-	//È¸¿ø ÁÖ¹®³»¿ª
+	//íšŒì› ì£¼ë¬¸ë‚´ì—­
 	@RequestMapping("MyOrderInfo")
 	public String MyOrderInfo(HttpServletRequest request, Model model, OrderDto dto) {
 		
 		String uId = request.getParameter("user_id");
-		System.out.println("ÁÖ¹®³»¿ª ÄÁÆ®·Ñ·¯¿¡ µé¾î¿È È¸¿ø¾ÆÀÌµğ´Â : " + uId);
+		System.out.println("ì£¼ë¬¸ë‚´ì—­ ì»¨íŠ¸ë¡¤ëŸ¬ì— ë“¤ì–´ì˜´ íšŒì›ì•„ì´ë””ëŠ” : " + uId);
 		dto.setUser_id(uId);
 		
 		ArrayList<OrderDto> dto1 = udao.MyOrderInfo(dto);
-		model.addAttribute("MyOrderInfo", dto1); //¸Ş´ºµî·Ï½Ã ¾÷Ã¼¹øÈ£ ¹Ş¾Æ¼­ ÀúÀåÇÏ±â À§ÇØ ÇÊ¿ä
+		model.addAttribute("MyOrderInfo", dto1); //ë©”ë‰´ë“±ë¡ì‹œ ì—…ì²´ë²ˆí˜¸ ë°›ì•„ì„œ ì €ì¥í•˜ê¸° ìœ„í•´ í•„ìš”
 			
 		return "Main/UserOrderInfo_view";
 	}
 	
-	//È¸¿ø ÁÖ¹®³»¿ª ³¯Â¥ Á¶È¸
+	//íšŒì› ì£¼ë¬¸ë‚´ì—­ ë‚ ì§œ ì¡°íšŒ
 	@RequestMapping("OrderDcheck")
 	public String OrderDcheck(HttpServletRequest request, Model model) throws ParseException {
 		
@@ -168,21 +168,21 @@ public class UserController {
 
 	}
 	
-	//È¸¿ø ÁÖ¹® »ó¼¼³»¿ª
+	//íšŒì› ì£¼ë¬¸ ìƒì„¸ë‚´ì—­
 	@RequestMapping("MyOrderInfoDetail")
 	public String MyOrderInfoDetail(HttpServletRequest request, Model model, OrderDto dto, OrderDetailDto dto1,
 										@RequestParam(value = "oNo", required = false) String oNo) throws ParseException {
 		
-		System.out.println("ÁÖ¹®¹øÈ£ : " + oNo); 
+		System.out.println("ì£¼ë¬¸ë²ˆí˜¸ : " + oNo); 
 		
-		dto.setoNo(oNo); //ÁÖ¹®Å×ÀÌºí
-		dto1.setoNo(oNo); //ÁÖ¹®»ó¼¼Å×ÀÌºí
+		dto.setoNo(oNo); //ì£¼ë¬¸í…Œì´ë¸”
+		dto1.setoNo(oNo); //ì£¼ë¬¸ìƒì„¸í…Œì´ë¸”
 		
-		//ÁÖ¹®Å×ÀÌºí ³»¿ª
+		//ì£¼ë¬¸í…Œì´ë¸” ë‚´ì—­
 		ArrayList<OrderDto> od1 = udao.MyOrderInfoDetail(dto);
 		model.addAttribute("MyOrderInfoDetail", od1);
 		
-		//ÁÖ¹®»ó¼¼Å×ÀÌºí ³»¿ª
+		//ì£¼ë¬¸ìƒì„¸í…Œì´ë¸” ë‚´ì—­
 		ArrayList<OrderDetailDto> od2 = udao.MyOrderInfoDetail1(dto1);
 		model.addAttribute("MyOrderInfoDetail1", od2);
 		
@@ -192,37 +192,37 @@ public class UserController {
 	
 	
 	
-	//·Î±×ÀÎ
+	//ë¡œê·¸ì¸
 	@RequestMapping(value = "login1", method = RequestMethod.GET)
 	public ModelAndView login(Model md, HttpSession session,
 			@RequestParam(value = "log", required = false) String log,
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
 		
-		System.out.println("ÄÁÆ®·Ñ·¯¿¡ µé¾î¿È");
+		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ì— ë“¤ì–´ì˜´");
 		
 		ModelAndView model = new ModelAndView();
 		
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
 		
-		System.out.println("³×ÀÌ¹ö" + naverAuthUrl);
+		System.out.println("ë„¤ì´ë²„" + naverAuthUrl);
 		
-		//³×ÀÌ¹ö url
+		//ë„¤ì´ë²„ url
 		md.addAttribute("url", naverAuthUrl);
 		
 		if (log != null) {
-			System.out.println("login log ÁøÀÔ");
+			System.out.println("login log ì§„ì…");
 			//model.addObject("log", "before login!");
 			model.setViewName("Main/login");
 		} 
 		if (error != null) {
-			System.out.println("login error ÁøÀÔ");
+			System.out.println("login error ì§„ì…");
 			model.setViewName("Main/login");
 			//model.addObject("error", "Invalid username and password!");
 		} 
-		//·Î±×¾Æ¿ô ¹öÆ° ÀÌÈÄ ÀÌµ¿ÇÏ´Â ÆäÀÌÁö ÀÌ¸§
+		//ë¡œê·¸ì•„ì›ƒ ë²„íŠ¼ ì´í›„ ì´ë™í•˜ëŠ” í˜ì´ì§€ ì´ë¦„
 		if (logout != null) {
-			System.out.println("login logout ÁøÀÔ");
+			System.out.println("login logout ì§„ì…");
 			//model.addObject("msg", "You've been logged out successfully.");
 			model.setViewName("Main/login");
 		}
@@ -232,7 +232,7 @@ public class UserController {
 		return model;		
 	}
 	
-	//¾ÆÀÌµğ Ã£±â
+	//ì•„ì´ë”” ì°¾ê¸°
 	@RequestMapping("findIdDo")
 	public String findId(HttpServletRequest request, HttpServletResponse response, Model md) throws Exception{
 		System.out.println("findIdDo controller");
@@ -245,19 +245,19 @@ public class UserController {
 		response.setHeader("Cache-Control", "no-cache");
 		
 		String result = (String)request.getAttribute("result");
-		System.out.println("ÄÁÆ®·Ñ·¯ ¼ö½Å id°ª : " + result);
+		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ ìˆ˜ì‹  idê°’ : " + result);
 		
 		md.addAttribute("id", result);
 		
 		return "Main/User/findIdResult";
 	}
 	
-	//ÀÓ½Ã ºñ¹Ğ¹øÈ£
+	//ì„ì‹œ ë¹„ë°€ë²ˆí˜¸
 	@RequestMapping("findPwDo")
 	public String findPwDo(HttpServletRequest request, HttpServletResponse response, Model md, UserDto dto) throws Exception {
 		ModelAndView mav;
 			
-		System.out.println("findPwDo ÄÁÆ®·Ñ·¯");
+		System.out.println("findPwDo ì»¨íŠ¸ë¡¤ëŸ¬");
 		com = new BPwFindCommand();
 		com.execute(request, md);
 		
@@ -269,7 +269,7 @@ public class UserController {
 		PrintWriter out = response.getWriter();		
 				
 		if(result == 1) {
-			// ÀÓ½Ã ºñ¹Ğ¹øÈ£ »ı¼º
+			// ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ ìƒì„±
 			String pw = "";
 			for (int i = 0; i < 12; i++) {
 				pw += (char) ((Math.random() * 26) + 97);
@@ -279,10 +279,10 @@ public class UserController {
 			u1Pw = passwordEncoder.encode(uPw_org);
 			System.out.println(pw);
 			dto.setUser_pw(u1Pw);
-			// ºñ¹Ğ¹øÈ£ º¯°æ
+			// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
 			udao.update_pw(dto);			
 			
-			// ºñ¹Ğ¹øÈ£ º¯°æ ¸ŞÀÏ ¹ß¼Û
+			// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ë©”ì¼ ë°œì†¡
 			dao.send_mail(dto, "findPwDo", pw);
 			
 			return "Main/User/findPwResult";
@@ -292,16 +292,16 @@ public class UserController {
 		}
 	}
 	
-	//È¸¿øÁ¤º¸ ¼öÁ¤È­¸é
+	//íšŒì›ì •ë³´ ìˆ˜ì •í™”ë©´
 	@RequestMapping("memberModify")
 	public String join_view(HttpServletRequest request, HttpServletResponse response, Model md) {
-		System.out.println("memberModify ÄÁÆ®·Ñ·¯");
+		System.out.println("memberModify ì»¨íŠ¸ë¡¤ëŸ¬");
 		com = new BModCommand();
 		com.execute(request, md);		
 		return "Main/User/memberModiView";
 	}
 	
-	//È¸¿øÁ¤º¸ ¼öÁ¤¿¡¼­ ºñ¹Ğ¹øÈ£Ã³¸®
+	//íšŒì›ì •ë³´ ìˆ˜ì •ì—ì„œ ë¹„ë°€ë²ˆí˜¸ì²˜ë¦¬
 	@RequestMapping("pwModiDo")
 	public void pwModiDo(HttpServletRequest request, UserDto dto) {		
 		String pw = request.getParameter("user_pw");		
@@ -311,10 +311,10 @@ public class UserController {
 		dto.setUser_pw(uPw);
 		
 		udao.pwModiDo(dto);
-		System.out.println("udao·Î µ¥ÀÌÅÍ Àü¼Û");
+		System.out.println("udaoë¡œ ë°ì´í„° ì „ì†¡");
 	}
 	
-	//È¸¿øÁ¤º¸ ¼öÁ¤Ã³¸®
+	//íšŒì›ì •ë³´ ìˆ˜ì •ì²˜ë¦¬
 	@RequestMapping("memberModiDo")
 	public String memberModiDo(HttpServletRequest request, UserDto dto) {
 		dto.setUser_id(request.getParameter("logid"));
@@ -325,7 +325,7 @@ public class UserController {
 		dto.setUser_profile(request.getParameter("user_profile"));
 		
 		udao.memberModiDo(dto);
-		System.out.println("udao·Î µ¥ÀÌÅÍ Àü¼Û");
+		System.out.println("udaoë¡œ ë°ì´í„° ì „ì†¡");
 		
 		return "Main/main_view";
 	}
@@ -335,31 +335,14 @@ public class UserController {
 		
 		dto.setUser_id(request.getParameter("logid"));
 		udao.memberDelDo(dto);
-		System.out.println("udao·Î µ¥ÀÌÅÍ Àü¼Û");
+		System.out.println("udaoë¡œ ë°ì´í„° ì „ì†¡");
 		
 		return "Main/User/memDelComp";
 	}
-
-
-	/* NaverLoginBO */
-	private NaverLoginBO naverLoginBO;
 	
-	private String apiResult = null;
-	
-	@Autowired  //beanÁÖÀÔ
+	@Autowired  //beanì£¼ì…
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
-	}
-	
-	//³×ÀÌ¹ö ·Î±×ÀÎ ¼º°ø½Ã callbackÈ£Ãâ ¸Ş¼Òµå
-	@RequestMapping("callback")
-	public ModelAndView callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
-		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-		
-		System.out.println("Naver login success");
-		
-		return new ModelAndView("mainFrame", "result", apiResult);
 	}
 	
 }
